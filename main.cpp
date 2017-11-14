@@ -2,27 +2,21 @@
 #include<vector>
 #include<string>
 #include "bitmap.h"
+#include<cstdlib>
 
+using namespace std;
 //----------------------------------------------------prototypes------------------------------------------------------//
 
 //asks for name of the functions and repeats until you hit 10 images and makes the image into a matrix
 vector <string>  inputFileName(string);
 
 //creates a matrix for all the images
-vector <vector <vector <int> > > createPixelMatrix(vector <string> );
+vector <vector <vector <Pixel> > > createPixelMatrix(vector <string> );
 
-//will go through the image and find the value of the pixel
-int findPixelRGB(vector < vector < vector < Pixel > > > );
-
-//will find the input of all the images and finds the average of each pixel throughout the 10 images
-void findAverage(int & );
-
-//inputs all the averages into each pixel of the matrix and prints it out
-void printPixelMatrix(Bitmap &);
+//will go through the image and find the value of the pixel and take the average of all the stacked images
+Bitmap findPixelRGB(vector < vector < vector < Pixel > > > );
 
 //--------------------------------------------------------------------------------------------------------------------//
-
-using namespace std;
 
 /* WHAT TO DO
    - ask for a file name
@@ -36,28 +30,30 @@ using namespace std;
  */
 int main()
 {
+    Pixel bmp; 
+    vector<vector<Pixel> matrix;
+    vector<string> Names;
     for( int t = 0; t < 10; t++)
     {
         Bitmap file;
-        int value;
+        Pixel value;
         file = inputFileName(filename);
         
-        cout<<"image "<<t<<" is processed"
-        
-        value = rgb
+        cout<<"image "<<t<<" is processed"<<endl;
+        value = rgb;
    }
-
     
-
     return 0;
 }
 
-vector <string> inputFileName( string )
+vector <string> inputFileName( string filename )
 {
-                Bitmap filename;
+                Bitmap image;
+                string filename;
                 cout<<"Input file name"<<endl;
                 cin<<filename;
                 
+                image.open(filename)
                 bool validBMP = isImage();
                 if(validBMP = true )
                 {
@@ -69,10 +65,10 @@ vector <string> inputFileName( string )
                 {
                     cout<<"Image is invalid"<<endl;
                 }
-                
+return filename;               
 }
 
-vector < vector < vector < Pixel > > > createPixelMatrix( vector < string> )
+vector < vector < vector < Pixel > > > createPixelMatrix( vector < string > filename )
 {
     vector < vector <vector < Pixel > > > bmp;
     
@@ -93,10 +89,10 @@ vector < vector < vector < Pixel > > > createPixelMatrix( vector < string> )
             }
         }
     }
-    return matrix;
+    return bmp;
 }
 
-int findPixelRGB(vector < vector < vector < Pixel > > > matrix)
+Bitmap findPixelRGB(vector < vector < vector < Pixel > > > & matrix)
 {
     Pixel rgb;
     int value;
@@ -107,26 +103,32 @@ int findPixelRGB(vector < vector < vector < Pixel > > > matrix)
     rows = matrix.size();
     cols = matrix[0].size();
 
-    for( int r = 0; r < matrix.size(); r++)
+    for( int d = 0; d < matrix[r][c].size(); r++)
     {
+        int sumRed = 0;
+        int sumGreen = 0;
+        int sumBlue = 0;
+
         for( int c = 0; c < matrix[r].size(); c++)
         {
-            for( int d = 0; d < matrix[r][c].size(); d++)
+            for( int r = 0; r < matrix.size(); d++)
             {
                 rgb = matrix[r][c][d];
-            }
+                sumRed += rgb.red;
+                sumGreeen += rgb.green;
+                sumBlue += rgb.blue;        
+                int avgRed = sumRed / matrix[r][c].size();
+                int avgGreeen = sumGreen / matrix[r][c].size();
+                int avgBlue = sumBlue / matrix[r][c].size();
+                rgb.red = avgRed;
+                rgb.green = avgGreen;
+                rgb.blue = avgBlue;
+                bmp[r][c][d] = rgb;
+            }   
         }
     }
-return rgb;
+image.fomPixelMatix(bmp);
+image.save("composite-gregjbauer.bmp")
+return composite-gregjbauer.bmp;
 }
 
-void findAverage(Pixel & rgb )
-{
-    int sumRed = rgb.red / d;
-    int sumGreen = rgb.green / d;
-    int sumBlue = rgb.blue / d;
-}
-void printPixelMatrix(Bitmap & )
-{
-    bmp.fromPixelMatrix
-}
